@@ -1,39 +1,47 @@
-#include <bits/stdc++.h>
+#include<bits/stdc++.h>
+#define FAST ios_base::sync_with_stdio(false);cin.tie();cout.tie();
+#define MOD 1000000007
 using namespace std;
-typedef long double ll;
-typedef long long LL;
+typedef long long ll;
+typedef long double ld;
+
 void solve()
 {
-    int a,b,k;
-    cin>>a>>b>>k;
-    vector <pair<int,int>> v(k,{0,0});
-    vector <int> degree_girls(b+1,0);
-    vector <int> degree_boys(a+1,0);
-    int num;
-    for(int i=0;i<k;i++)
+    int n;
+    cin>>n;
+    map <int,int> m;
+    map <int,int> m2;
+    for(int i=0;i<n;i++)
     {
+        int num;
         cin>>num;
-        v[i].first=num;
-        degree_boys[num]++;
+        m[num]++;
     }
-    for(int i=0;i<k;i++)
+    for(auto i:m)
     {
-        cin>>num;
-        v[i].second=num;
-        degree_girls[num]++;
+        m2[i.second]++;
     }
-   
-    LL ans=0;
-    for(auto j:v)
-        ans+=k-degree_boys[j.first]-degree_girls[j.second]+1;
-    cout<<ans/2<<endl;
+    int ans=n;
+    int left=0;
+    int right=n;
+    int rightcnt=m.size();
+    for(auto [x,y]:m2)
+    {
+        ans=min(ans,left+right-x*rightcnt);
+        left+=x*y;
+        right-=x*y;
+        rightcnt-=y;
+    }
+    cout<<ans<<endl;
 }
+ 
 int main()
 {
-    int t=1;  cin>>t;
-    while (t--)
-    {
-        solve();
-    }
-    return 0;
+   int t=1;  cin>>t;
+   while (t--)
+   {
+      solve();
+   }
+   return 0;
 }
+//clang++-7 -pthread -std=c++17 -o main main.cpp
