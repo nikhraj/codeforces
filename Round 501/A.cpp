@@ -43,7 +43,7 @@ void solve()
  
 int main()
 {
-    freopen("input.txt","r",stdin);
+   // freopen("input.txt","r",stdin);
    int t=1;  //cin>>t;
    while (t--)
    {
